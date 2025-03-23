@@ -55,5 +55,9 @@ Refactoring is the process of improving the structure of source code without cha
    - Practice exercises.
 
 9. Bonus
-   - **[Send emails to multiple user types](bonus1.md)**
-   - **[Send multilingual emails](bonus2.md)**
+   - **[Send emails to multiple user types](/en/bonus1.md)**
+   - **[Send multilingual emails](/en/bonus2.md)**
+
+---
+
+**[Section 1: Introduction to Refactoring](/en/section1.md)** ➡️

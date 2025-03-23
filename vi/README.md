@@ -60,3 +60,7 @@ ___
 
 ### **Bao nhiêu Section?**
 Tôi sẽ hướng dẫn bạn **8 section** như trên. Mỗi section sẽ đi sâu vào lý thuyết và kèm theo ví dụ minh họa để bạn dễ hiểu và áp dụng. 😊
+
+---
+
+**[Section 1: Introduction to Refactoring](section1.md)** ➡️
