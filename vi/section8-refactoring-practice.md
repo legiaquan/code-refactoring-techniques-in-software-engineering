@@ -1,194 +1,222 @@
-Chúng ta sẽ chuyển sang **Section 7: Công cụ Hỗ trợ Refactoring**. Trong phần này, chúng ta sẽ khám phá các công cụ và IDE hỗ trợ refactoring, giúp bạn thực hiện các thay đổi mã nguồn một cách nhanh chóng và an toàn. Đặc biệt, chúng ta sẽ tập trung vào cách sử dụng các công cụ này với **TypeScript**. ✨
+**Section 8: Thực hành Refactoring**. Trong phần này, chúng ta sẽ áp dụng tất cả các kiến thức đã học để refactor một đoạn mã thực tế ✨
 
 ---
 
-### **Section 7: Công cụ Hỗ trợ Refactoring** 🛠️
+### **Section 8: Thực hành Refactoring** 🛠️
 
-#### **1. Công cụ Refactoring trong IDE** 💻
-Các IDE hiện đại như **Visual Studio Code (VS Code)**, **WebStorm**, và **IntelliJ IDEA** cung cấp nhiều tính năng refactoring mạnh mẽ. Dưới đây là một số tính năng phổ biến:
-
-##### **a. Rename Symbol (Đổi tên biến/hàm/lớp)** ✏️
-- **Phím tắt**: `F2` (VS Code) hoặc `Shift + F6` (WebStorm/IntelliJ).
-- **Ví dụ**: Đổi tên biến hoặc hàm và tự động cập nhật tất cả các tham chiếu.
-
+#### **1. Bài toán Thực tế** 📋
+Giả sử bạn có một đoạn mã TypeScript xử lý đơn hàng (order processing) như sau:
 ```typescript
-// ❌ Trước khi đổi tên
-function calculateTotal(price: number, quantity: number): number {
-  return price * quantity;
-}
+class OrderProcessor {
+  process(order: { items: number[]; discount: number; tax: number; userEmail: string }): void {
+    // Validate order
+    if (order.items.length === 0) throw new Error("Order must have at least one item.");
+    if (order.discount < 0) throw new Error("Discount cannot be negative.");
+    if (order.tax < 0) throw new Error("Tax cannot be negative.");
 
-// ✅ Sau khi đổi tên (sử dụng Rename Symbol)
-function computeTotal(price: number, quantity: number): number {
-  return price * quantity;
-}
-```
-
-##### **b. Extract Method (Tách phương thức)** ✂️
-- **Phím tắt**: `Ctrl + .` (VS Code) hoặc `Ctrl + Alt + M` (WebStorm/IntelliJ).
-- **Ví dụ**: Tách một đoạn mã thành một hàm mới.
-
-```typescript
-// ❌ Trước khi tách
-function processOrder(order: { items: number[]; discount: number }): number {
-  const subtotal = order.items.reduce((sum, item) => sum + item, 0);
-  return subtotal - order.discount;
-}
-
-// ✅ Sau khi tách (sử dụng Extract Method)
-function calculateSubtotal(items: number[]): number {
-  return items.reduce((sum, item) => sum + item, 0);
-}
-
-function processOrder(order: { items: number[]; discount: number }): number {
-  const subtotal = calculateSubtotal(order.items);
-  return subtotal - order.discount;
-}
-```
-
-##### **c. Extract Variable (Tách biến)** 🧩
-- **Phím tắt**: `Ctrl + .` (VS Code) hoặc `Ctrl + Alt + V` (WebStorm/IntelliJ).
-- **Ví dụ**: Tách một biểu thức phức tạp thành một biến riêng.
-
-```typescript
-// ❌ Trước khi tách
-function calculateTotal(price: number, quantity: number, tax: number): number {
-  return price * quantity + (price * quantity * tax);
-}
-
-// ✅ Sau khi tách (sử dụng Extract Variable)
-function calculateTotal(price: number, quantity: number, tax: number): number {
-  const subtotal = price * quantity;
-  const taxAmount = subtotal * tax;
-  return subtotal + taxAmount;
-}
-```
-
----
-
-#### **2. Công cụ Phân tích Mã Tĩnh (Static Analysis Tools)** 🔍
-Các công cụ phân tích mã tĩnh giúp phát hiện các vấn đề tiềm ẩn trong mã và đề xuất refactoring.
-
-##### **a. ESLint** 🛡️
-- **Công dụng**: Phát hiện lỗi cú pháp, code smells, và vi phạm coding conventions.
-- **Cài đặt**:
-  ```bash
-  npm install eslint --save-dev
-  npx eslint --init
-  ```
-- **Ví dụ cấu hình ESLint**:
-  ```json
-  {
-    "rules": {
-      "no-unused-vars": "error",
-      "no-duplicate-imports": "error",
-      "prefer-const": "warn"
+    // Calculate total
+    let subtotal = 0;
+    for (let i = 0; i < order.items.length; i++) {
+      subtotal += order.items[i];
     }
-  }
-  ```
+    const discountedTotal = subtotal - order.discount;
+    const total = discountedTotal + (discountedTotal * order.tax);
 
-##### **b. SonarQube** 🧭
-- **Công dụng**: Phân tích chất lượng mã, phát hiện lỗi, code smells, và bảo mật.
-- **Tích hợp với TypeScript**: Sử dụng plugin SonarTS.
+    // Save order to database
+    const db = new Database();
+    db.save({ ...order, total });
+
+    // Send confirmation email
+    const emailService = new EmailService();
+    emailService.sendConfirmation(order.userEmail, total);
+  }
+}
+```
 
 ---
 
-#### **3. Công cụ Tự động Refactoring** 🤖
-Một số công cụ tự động hóa quá trình refactoring, giúp bạn tiết kiệm thời gian.
-
-##### **a. Prettier** 🎨
-- **Công dụng**: Tự động định dạng mã để đảm bảo tính nhất quán.
-- **Cài đặt**:
-  ```bash
-  npm install prettier --save-dev
-  ```
-- **Ví dụ cấu hình Prettier**:
-  ```json
-  {
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2
-  }
-  ```
-
-##### **b. TypeScript Refactoring Tools** 🛠️
-- **Công dụng**: Các plugin và extension hỗ trợ refactoring TypeScript.
-- **Ví dụ**: Extension **TypeScript Hero** cho VS Code giúp tự động import và sắp xếp các module.
+#### **2. Phân tích Mã Hiện tại** 🔍
+- **Code Smells**:
+  - **Long Method**: Hàm `process` quá dài và đảm nhận nhiều trách nhiệm.
+  - **Primitive Obsession**: Sử dụng nhiều tham số nguyên thủy thay vì đối tượng.
+  - **Tight Coupling**: Phụ thuộc trực tiếp vào `Database` và `EmailService`.
+  - **Duplicate Code**: Logic validate có thể được tách riêng.
 
 ---
 
-#### **4. Công cụ Kiểm thử Tự động (Automated Testing Tools)** 🧪
-Refactoring cần được đảm bảo bằng các bài kiểm thử tự động để tránh phá vỡ chức năng hiện có.
+#### **3. Refactoring Step-by-Step** 🧩
 
-##### **a. Jest** 🧾
-- **Công dụng**: Viết và chạy các bài kiểm thử đơn vị (unit tests).
-- **Ví dụ**:
-  ```typescript
-  // sum.ts
-  export function sum(a: number, b: number): number {
-    return a + b;
+##### **Bước 1: Tách Logic Validate** ✂️
+Tách logic validate thành một hàm riêng để tăng khả năng tái sử dụng.
+
+```typescript
+function validateOrder(order: { items: number[]; discount: number; tax: number }): void {
+  if (order.items.length === 0) throw new Error("Order must have at least one item.");
+  if (order.discount < 0) throw new Error("Discount cannot be negative.");
+  if (order.tax < 0) throw new Error("Tax cannot be negative.");
+}
+```
+
+##### **Bước 2: Tách Logic Tính toán** ✏️
+Tách logic tính toán thành một hàm riêng để dễ kiểm thử và tái sử dụng.
+
+```typescript
+function calculateTotal(order: { items: number[]; discount: number; tax: number }): number {
+  const subtotal = order.items.reduce((sum, item) => sum + item, 0);
+  const discountedTotal = subtotal - order.discount;
+  return discountedTotal + (discountedTotal * order.tax);
+}
+```
+
+##### **Bước 3: Giảm Coupling bằng Dependency Injection** 🔗
+Thay vì phụ thuộc trực tiếp vào `Database` và `EmailService`, hãy sử dụng dependency injection.
+
+```typescript
+interface Database {
+  save(order: any): void;
+}
+
+interface EmailService {
+  sendConfirmation(email: string, total: number): void;
+}
+
+class OrderProcessor {
+  constructor(private db: Database, private emailService: EmailService) {}
+
+  process(order: { items: number[]; discount: number; tax: number; userEmail: string }): void {
+    validateOrder(order);
+    const total = calculateTotal(order);
+
+    this.db.save({ ...order, total });
+    this.emailService.sendConfirmation(order.userEmail, total);
   }
+}
+```
 
-  // sum.test.ts
-  import { sum } from './sum';
+##### **Bước 4: Sử dụng Đối tượng Thay vì Tham số Nguyên thủy** 🧾
+Nhóm các tham số liên quan vào một đối tượng.
 
-  test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
-  });
-  ```
+```typescript
+interface Order {
+  items: number[];
+  discount: number;
+  tax: number;
+  userEmail: string;
+}
 
-##### **b. Cypress** 🌐
-- **Công dụng**: Kiểm thử tự động giao diện người dùng (UI testing).
-- **Ví dụ**:
-  ```typescript
-  describe('My First Test', () => {
-    it('Visits the app', () => {
-      cy.visit('/');
-      cy.contains('Welcome');
-    });
-  });
-  ```
+class OrderProcessor {
+  constructor(private db: Database, private emailService: EmailService) {}
+
+  process(order: Order): void {
+    validateOrder(order);
+    const total = calculateTotal(order);
+
+    this.db.save({ ...order, total });
+    this.emailService.sendConfirmation(order.userEmail, total);
+  }
+}
+```
+
+---
+
+#### **4. Kết quả Sau khi Refactor** 🎉
+```typescript
+interface Order {
+  items: number[];
+  discount: number;
+  tax: number;
+  userEmail: string;
+}
+
+interface Database {
+  save(order: any): void;
+}
+
+interface EmailService {
+  sendConfirmation(email: string, total: number): void;
+}
+
+function validateOrder(order: Order): void {
+  if (order.items.length === 0) throw new Error("Order must have at least one item.");
+  if (order.discount < 0) throw new Error("Discount cannot be negative.");
+  if (order.tax < 0) throw new Error("Tax cannot be negative.");
+}
+
+function calculateTotal(order: Order): number {
+  const subtotal = order.items.reduce((sum, item) => sum + item, 0);
+  const discountedTotal = subtotal - order.discount;
+  return discountedTotal + (discountedTotal * order.tax);
+}
+
+class OrderProcessor {
+  constructor(private db: Database, private emailService: EmailService) {}
+
+  process(order: Order): void {
+    validateOrder(order);
+    const total = calculateTotal(order);
+
+    this.db.save({ ...order, total });
+    this.emailService.sendConfirmation(order.userEmail, total);
+  }
+}
+```
+
+---
+
+#### **5. Lợi ích Sau khi Refactor** 🌟
+- **Dễ đọc**: Mỗi hàm chỉ đảm nhận một trách nhiệm.
+- **Dễ bảo trì**: Thay đổi logic validate hoặc tính toán không ảnh hưởng đến phần còn lại.
+- **Dễ kiểm thử**: Có thể viết unit test riêng cho từng hàm.
+- **Linh hoạt**: Có thể dễ dàng thay đổi database hoặc email service mà không cần sửa lớp `OrderProcessor`.
 
 ---
 
 ### **Bài tập Thực hành** 📝
-Hãy sử dụng các công cụ refactoring trong IDE của bạn để cải thiện đoạn mã sau:
+Hãy refactor đoạn mã sau bằng cách áp dụng các kỹ thuật đã học:
 ```typescript
-function processOrder(order: { items: number[]; discount: number; tax: number }): number {
-  let total = 0;
-  for (let i = 0; i < order.items.length; i++) {
-    total += order.items[i];
+class ReportGenerator {
+  generate(data: any[], format: string): string {
+    if (format === "csv") {
+      return data.map(row => row.join(",")).join("\n");
+    } else if (format === "json") {
+      return JSON.stringify(data);
+    } else {
+      throw new Error("Unsupported format");
+    }
   }
-  total = total - order.discount;
-  total = total + (total * order.tax);
-  return total;
 }
 ```
 
-**💡 Gợi ý**:
-- Sử dụng **Extract Method** để tách logic tính toán.
-- Sử dụng **Rename Symbol** để đặt tên biến rõ ràng hơn.
+💡 **Gợi ý**:
+- Sử dụng **Strategy Pattern** để tách logic xử lý định dạng. 🧩
+- Sử dụng **Dependency Injection** để giảm coupling. 🔗
 
 ---
 
-### **Kết quả Mong đợi**: 🎉
+### **Kết quả Mong đợi** 🎯
 ```typescript
-function calculateSubtotal(items: number[]): number {
-  return items.reduce((sum, item) => sum + item, 0);
+interface FormatStrategy {
+  generate(data: any[]): string;
 }
 
-function applyDiscount(total: number, discount: number): number {
-  return total - discount;
+class CsvStrategy implements FormatStrategy {
+  generate(data: any[]): string {
+    return data.map(row => row.join(",")).join("\n");
+  }
 }
 
-function applyTax(total: number, tax: number): number {
-  return total + (total * tax);
+class JsonStrategy implements FormatStrategy {
+  generate(data: any[]): string {
+    return JSON.stringify(data);
+  }
 }
 
-function processOrder(order: { items: number[]; discount: number; tax: number }): number {
-  const subtotal = calculateSubtotal(order.items);
-  const discountedTotal = applyDiscount(subtotal, order.discount);
-  const finalTotal = applyTax(discountedTotal, order.tax);
-  return finalTotal;
+class ReportGenerator {
+  constructor(private strategy: FormatStrategy) {}
+
+  generate(data: any[]): string {
+    return this.strategy.generate(data);
+  }
 }
 ```
 
