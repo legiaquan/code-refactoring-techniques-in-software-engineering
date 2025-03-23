@@ -194,4 +194,4 @@ function processOrder(order: { items: number[]; discount: number; tax: number })
 
 ---
 
-**[Section 8: Refactoring Practice](section8.md)** ➡️
+**[Bonus 1: Send emails to multiple user types](bonus1-send-emails-to-multiple-user-types.md)** ➡️ ✉️

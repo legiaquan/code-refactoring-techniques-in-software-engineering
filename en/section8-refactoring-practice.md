@@ -222,4 +222,4 @@ class ReportGenerator {
 
 ---
 
-**[Bonus 1: Send emails to multiple user types](bonus1.md)** ➡️ ✉️
+**[Bonus 1: Send emails to multiple user types](bonus1-send-emails-to-multiple-user-types.md)** ➡️ ✉️

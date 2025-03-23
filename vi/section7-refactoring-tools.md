@@ -194,4 +194,4 @@ function processOrder(order: { items: number[]; discount: number; tax: number })
 
 ---
 
-**[Section 8: Refactoring Practice](section8.md)** ➡️
+**[Section 8: Refactoring Practice](section8-refactoring-practice.md)** ➡️

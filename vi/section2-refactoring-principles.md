@@ -189,4 +189,4 @@ class Report {
 
 ---
 
-**[Section 3: Code Smells](section3.md)** ➡️
+**[Section 3: Code Smells](section3-code-smells.md)** ➡️

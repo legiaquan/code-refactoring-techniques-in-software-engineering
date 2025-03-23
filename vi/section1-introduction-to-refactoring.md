@@ -94,4 +94,4 @@ function processOrder(order: { items: number[]; discount: number }): number {
 
 ---
 
-**[Section 2: Refactoring Principles](section2.md)** ➡️
+**[Section 2: Refactoring Principles](section2-refactoring-principles.md)** ➡️

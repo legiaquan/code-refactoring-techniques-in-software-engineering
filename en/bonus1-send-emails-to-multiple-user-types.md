@@ -259,4 +259,4 @@ class EmailService {
 
 ---
 
-**[Bonus 2: Send multilingual emails](bonus2.md)** ➡️
+**[Bonus 2: Send multilingual emails](bonus2-send-multilingual-emails.md)** ➡️

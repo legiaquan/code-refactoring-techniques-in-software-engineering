@@ -8,17 +8,17 @@ Refactoring (tái cấu trúc mã) là quá trình cải thiện cấu trúc mã
 ___
 
 ### **Các Section về Refactoring**
-1. **[Giới thiệu về Refactoring](section1.md)**
+1. **[Giới thiệu về Refactoring](section1-introduction-to-refactoring.md)**
    - Refactoring là gì?
    - Tại sao cần refactoring?
    - Khi nào nên và không nên refactoring?
 
-2. **[Các Nguyên tắc Refactoring](section2.md)**
+2. **[Các Nguyên tắc Refactoring](section2-refactoring-principles.md)**
    - Nguyên tắc DRY (Don't Repeat Yourself).
    - Nguyên tắc KISS (Keep It Simple, Stupid).
    - Nguyên tắc YAGNI (You Aren't Gonna Need It).
 
-3. **[Các Code Smells](section3.md)**
+3. **[Các Code Smells](section3-code-smells.md)**
    - Giới thiệu về code smells.
    - Các loại code smells phổ biến:
      - Long Method.
@@ -27,34 +27,34 @@ ___
      - Feature Envy.
      - Và nhiều mùi code khác.
 
-4. **[Các Kỹ thuật Refactoring Cơ bản](section4.md)**
+4. **[Các Kỹ thuật Refactoring Cơ bản](section4-basic-refactoring-techniques.md)**
    - Extract Method.
    - Inline Method.
    - Extract Variable.
    - Rename Method/Variable.
    - Split Temporary Variable.
 
-5. **[Các Kỹ thuật Refactoring Nâng cao](section5.md)**
+5. **[Các Kỹ thuật Refactoring Nâng cao](section5-advanced-refactoring-techniques.md)**
    - Replace Conditional with Polymorphism.
    - Introduce Parameter Object.
    - Replace Magic Number with Symbolic Constant.
    - Decompose Conditional.
 
-6. **[Refactoring và Kiến trúc Phần mềm](section6.md)**
+6. **[Refactoring và Kiến trúc Phần mềm](section6-refactoring-and-software-architecture.md)**
    - Refactoring để cải thiện kiến trúc.
    - Sử dụng Design Patterns trong refactoring.
 
-7. **[Công cụ Hỗ trợ Refactoring](section7.md)**
+7. **[Công cụ Hỗ trợ Refactoring](section7-refactoring-tools.md)**
    - Công cụ refactoring trong IDE (Visual Studio, IntelliJ IDEA, VS Code).
    - Công cụ phân tích mã tĩnh (SonarQube, ESLint).
 
-8. **[Thực hành Refactoring](section8.md)**
+8. **[Thực hành Refactoring](section8-refactoring-practice.md)**
    - Ví dụ refactoring trên mã thực tế.
    - Bài tập thực hành.
 
 9. Bonus
-   - **[Gửi email cho nhiều đối tượng user](bonus1.md)**
-   - **[Gửi email đa ngôn ngữ](bonus2.md)**
+   - **[Gửi email cho nhiều đối tượng user](bonus1-send-emails-to-multiple-user-types.md)**
+   - **[Gửi email đa ngôn ngữ](bonus2-send-multilingual-emails.md)**
 
 ---
 
@@ -63,4 +63,4 @@ Tôi sẽ hướng dẫn bạn **8 section** như trên. Mỗi section sẽ đi 
 
 ---
 
-**[Section 1: Introduction to Refactoring](section1.md)** ➡️
+**[Section 1: Introduction to Refactoring](section1-introduction-to-refactoring.md)** ➡️

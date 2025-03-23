@@ -248,4 +248,4 @@ const processor = new OrderProcessingFacade([
 
 ---
 
- **[Section 7: Refactoring Tools](section7.md)** ➡️ 😊
+ **[Section 7: Refactoring Tools](section7-refactoring-tools.md)** ➡️ 😊

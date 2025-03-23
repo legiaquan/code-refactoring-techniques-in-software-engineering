@@ -153,4 +153,4 @@ function processOrder(order: { items: number[]; discount: number; tax: number })
 
 ---
 
-**[Section 5: Advanced Refactoring Techniques](section5.md)** ➡️ 😊
+**[Section 5: Advanced Refactoring Techniques](section5-advanced-refactoring-techniques.md)** ➡️ 😊

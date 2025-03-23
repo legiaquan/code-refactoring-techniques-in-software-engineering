@@ -1,15 +1,15 @@
-Chúng ta sẽ chuyển sang **Section 3: Các Mùi Code (Code Smells)**. Đây là những dấu hiệu cho thấy mã của bạn có vấn đề và cần được refactor. Chúng ta sẽ tìm hiểu các mùi code phổ biến và cách khắc phục chúng bằng **TypeScript**. 🛠️
+We will move on to **Section 3: Code Smells**. These are signs that your code has issues and needs to be refactored. We will explore common code smells and how to fix them using **TypeScript**. ✨
 
 ---
 
-### **Section 3: Các Mùi Code (Code Smells)** 🚨
+### **Section 3: Code Smells** 🚨
 
-#### **1. Long Method (Hàm quá dài)** 📏
-Một hàm quá dài thường khó đọc và khó bảo trì. Hãy tách nó thành các hàm nhỏ hơn.
+#### **1. Long Method** 📏
+A method that is too long is often hard to read and maintain. Break it into smaller methods.
 
-Ví dụ:
+Example:
 ```typescript
-// ❌ Mùi code: Long Method
+// ❌ Code smell: Long Method
 function processOrder(order: { items: number[]; discount: number; tax: number }): number {
   let total = 0;
   for (let i = 0; i < order.items.length; i++) {
@@ -20,7 +20,7 @@ function processOrder(order: { items: number[]; discount: number; tax: number })
   return total;
 }
 
-// ✅ Refactor: Tách thành các hàm nhỏ
+// ✅ Refactor: Break into smaller methods
 function calculateSubtotal(items: number[]): number {
   return items.reduce((sum, item) => sum + item, 0);
 }
@@ -43,12 +43,12 @@ function processOrder(order: { items: number[]; discount: number; tax: number })
 
 ---
 
-#### **2. Large Class (Lớp quá lớn)** 🏢
-Một lớp quá lớn thường đảm nhận quá nhiều trách nhiệm. Hãy tách nó thành các lớp nhỏ hơn.
+#### **2. Large Class** 🏢
+A class that is too large often takes on too many responsibilities. Break it into smaller classes.
 
-Ví dụ:
+Example:
 ```typescript
-// ❌ Mùi code: Large Class
+// ❌ Code smell: Large Class
 class UserManager {
   constructor(private users: { name: string; email: string }[]) {}
 
@@ -71,7 +71,7 @@ class UserManager {
   }
 }
 
-// ✅ Refactor: Tách thành các lớp nhỏ
+// ✅ Refactor: Break into smaller classes
 class UserRepository {
   constructor(private users: { name: string; email: string }[]) {}
 
@@ -105,12 +105,12 @@ class ReportGenerator {
 
 ---
 
-#### **3. Duplicated Code (Mã trùng lặp)** 🔁
-Mã trùng lặp làm tăng khả năng lỗi và khó bảo trì. Hãy tách nó thành một hàm hoặc module riêng.
+#### **3. Duplicated Code** 🔁
+Duplicated code increases the chance of errors and makes maintenance harder. Extract it into a separate function or module.
 
-Ví dụ:
+Example:
 ```typescript
-// ❌ Mùi code: Duplicated Code
+// ❌ Code smell: Duplicated Code
 function calculateAreaOfSquare(side: number): number {
   return side * side;
 }
@@ -119,7 +119,7 @@ function calculateAreaOfRectangle(length: number, width: number): number {
   return length * width;
 }
 
-// ✅ Refactor: Sử dụng hàm chung
+// ✅ Refactor: Use a common function
 function calculateArea(shape: 'square' | 'rectangle', ...dimensions: number[]): number {
   if (shape === 'square') {
     return dimensions[0] * dimensions[0];
@@ -132,12 +132,12 @@ function calculateArea(shape: 'square' | 'rectangle', ...dimensions: number[]): 
 
 ---
 
-#### **4. Feature Envy (Hàm quá quan tâm đến dữ liệu của lớp khác)** 🤷‍♂️
-Một hàm sử dụng dữ liệu của một lớp khác nhiều hơn dữ liệu của chính nó. Hãy di chuyển hàm đó vào lớp chứa dữ liệu.
+#### **4. Feature Envy** 🤷‍♂️
+A method that uses another class's data more than its own. Move the method to the class containing the data.
 
-Ví dụ:
+Example:
 ```typescript
-// ❌ Mùi code: Feature Envy
+// ❌ Code smell: Feature Envy
 class Order {
   constructor(public items: number[], public discount: number) {}
 }
@@ -149,7 +149,7 @@ class OrderProcessor {
   }
 }
 
-// ✅ Refactor: Di chuyển hàm vào lớp Order
+// ✅ Refactor: Move the method to the Order class
 class Order {
   constructor(public items: number[], public discount: number) {}
 
@@ -162,17 +162,17 @@ class Order {
 
 ---
 
-#### **5. Primitive Obsession (Lạm dụng kiểu dữ liệu nguyên thủy)** 🔢
-Sử dụng quá nhiều kiểu dữ liệu nguyên thủy (như `string`, `number`) thay vì tạo các lớp hoặc đối tượng phù hợp.
+#### **5. Primitive Obsession** 🔢
+Overusing primitive data types (like `string`, `number`) instead of creating appropriate classes or objects.
 
-Ví dụ:
+Example:
 ```typescript
-// ❌ Mùi code: Primitive Obsession
+// ❌ Code smell: Primitive Obsession
 function createUser(name: string, email: string, age: number) {
-  // Xử lý logic
+  // Process logic
 }
 
-// ✅ Refactor: Sử dụng lớp hoặc interface
+// ✅ Refactor: Use a class or interface
 interface User {
   name: string;
   email: string;
@@ -180,14 +180,14 @@ interface User {
 }
 
 function createUser(user: User) {
-  // Xử lý logic
+  // Process logic
 }
 ```
 
 ---
 
-### **Bài tập thực hành** 📝
-Hãy refactor đoạn mã TypeScript sau để loại bỏ các mùi code:
+### **Practice Exercise** 📝
+Refactor the following TypeScript code to eliminate code smells:
 ```typescript
 class Product {
   constructor(public name: string, public price: number, public quantity: number) {}
@@ -206,10 +206,10 @@ class Product {
 }
 ```
 
-💡 **Gợi ý**:
-- Tách `generateReport` thành một lớp riêng.
-- Kiểm tra xem có mã trùng lặp không.
+💡 **Hints**:
+- Extract `generateReport` into a separate class. ✂️
+- Check for duplicated code. 🔍
 
 ---
 
-**[Section 4: Basic Refactoring Techniques](section4.md)** ➡️
+**[Section 4: Basic Refactoring Techniques](section4-basic-refactoring-techniques.md)** ➡️
